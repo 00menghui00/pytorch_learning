@@ -1,1 +1,33 @@
+env:
+	python==3.7#该版本python支持的框架很多
 
+anaconda:蟒蛇；python:蛇
+
+tensor:张量，多维数组，作为模型参数，可以在硬件加速器(gpu)上运行，内置一百多种方法(官网可查看）
+
+列表创建张量：
+	a=[1,2,3] #class list
+	b=torch.tensor(a)#class tensor
+numpy创建张量:
+	a=np.random.normal(2,3)#array
+	b=torch.tensor(a)#tensor
+a=torch.rand([2,2])
+
+a.device:查看创建在cpu还是gpu
+tensor=tensor.to('cuda')#移动到gpu，但是移动大数据可能花费时间较多
+
+torch.numel(tensor) #返回张量中的所有元素的总数
+
+操作：
+a=torch.zeros([5,5],dtype=torch.int32)
+torch.ones_like(a)
+遍历：
+arange:
+for i in torch.arange(10):#从0到9,共10次
+	print("epoch:",i)
+range:比arange多一个末位数
+
+torch.full([2,2],5)
+
+cat:连接张量
+torch.cat([a,b],dim=1)#dim表示第一个维度
