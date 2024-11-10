@@ -1,0 +1,18 @@
+
+torch.utils.data.Dataset:对单样本而言,每次只处理一个样本
+
+torch.utils.data.DataLoader:对多个样本而言，对样本批量处理
+
+构建自己的Dataset类
+	继承Dataset:
+def __init__(self,annotations_file,img_dir,transform=None,target_transform=None):
+	传入文件路径
+def __len__(self):
+	返回数据的大小
+def __getitem__ (self,index)：
+	基于索引返回训练样本(image,label),transform:数据预处理
+
+DataLoader：批量样本，打乱原顺序(避免过拟合)，多线程
+DataLoader(dataset,batch_size,shuffle(打乱),sampler(采样),num_workers(线程),pin_memory(tensor保存在gpu中),collate_fun(对			batch_size进行处理))
+
+将dataset导入dataloader后可以对dataset遍历
