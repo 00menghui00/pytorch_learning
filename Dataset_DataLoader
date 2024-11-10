@@ -16,3 +16,27 @@ DataLoader：批量样本，打乱原顺序(避免过拟合)，多线程
 DataLoader(dataset,batch_size,shuffle(打乱),sampler(采样),num_workers(线程),pin_memory(tensor保存在gpu中),collate_fn(对batch_size进行处理))
 
 将dataset导入dataloader后可以对dataset遍历
+
+DataLoader源码详细讲解：
+__init__(self,dataset,batch_size,shuffle,sampler(自定义样本采样方法),batch_sampler,num_workers,collate_fn)
+	sample(自定义采样)与shuffle(默认采样方法)只能用一个
+	batch_sample与batch_size只能用一个,shuffle与sampler也不用了
+
+RandomSampler
+__iter__(self):获取数据集长度，
+	torch.randperm:返回0到n-1的列表的随机组合
+
+SequentialSampler
+__iter__(self):按某种顺序采样
+	batch_sampler：从dataset中以sampler拼接的元素以index返回
+	drop_last:丢弃最后散的数据
+
+_index_sampler
+
+_next_data
+
+transform
+target_transform
+
+
+
