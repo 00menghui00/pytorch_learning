@@ -7,7 +7,8 @@ torch.utils.data.DataLoader:对多个样本而言，对样本批量处理
 	继承Dataset:
 def __init__(self,annotations_file,img_dir,transform=None,target_transform=None):
 	传入文件路径
-	self.sequence_length:获取序列的长度
+	self.sequence_length:不是官方自带的，用于获取序列的长度，一般用于NLP或时间序列数据
+	self.transform:对图像数据进行预处理/数据增强
 def __len__(self):
 	返回数据的大小
 def __getitem__ (self,index)：
