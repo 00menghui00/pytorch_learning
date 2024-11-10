@@ -7,6 +7,7 @@ torch.utils.data.DataLoader:对多个样本而言，对样本批量处理
 	继承Dataset:
 def __init__(self,annotations_file,img_dir,transform=None,target_transform=None):
 	传入文件路径
+	self.sequence_length:获取序列的长度
 def __len__(self):
 	返回数据的大小
 def __getitem__ (self,index)：
