@@ -1,0 +1,32 @@
+Transforms:变换图像使其满足神经网络的输入要求
+
+Build Model:
+get device for training
+所有网络模型都是继承自nn.Module
+__init__(self)
+	实例化父类，nn.Flatten，nn.Sequential，nn.Linear(输入特征维度，隐含层大小)，
+forward(self,x)
+
+实例化自定义模型：
+model=network().to(device)#将模型调到设备上
+开源项目：summary：可以查看模型参数，形状，层名称
+
+使用模型：
+logits=model(tensor)
+pred_probab=nn.Softmax(dim=1)(logits)
+
+flatten=nn.Flatten
+torch.nn.Flatten(start_dim=1,end_dim=-1)#浓缩维度
+
+nn.Linear(in_features,out_features,bias,device,dtype)
+
+nn.ReLU#类需要实例化，不能直接调用
+
+nn.Sequential
+
+nn.Softmax
+
+named_parameters:返回元组
+
+nn.Module源码
+add_
