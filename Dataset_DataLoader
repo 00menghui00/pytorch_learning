@@ -13,6 +13,6 @@ def __getitem__ (self,index)：
 	基于索引返回训练样本(image,label),transform:数据预处理
 
 DataLoader：批量样本，打乱原顺序(避免过拟合)，多线程
-DataLoader(dataset,batch_size,shuffle(打乱),sampler(采样),num_workers(线程),pin_memory(tensor保存在gpu中),collate_fun(对			batch_size进行处理))
+DataLoader(dataset,batch_size,shuffle(打乱),sampler(采样),num_workers(线程),pin_memory(tensor保存在gpu中),collate_fn(对batch_size进行处理))
 
 将dataset导入dataloader后可以对dataset遍历
