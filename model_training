@@ -1,0 +1,21 @@
+model training
+
+构建dataset
+dataloader
+构建模型(继承module)
+
+超参数：
+lr,bs,epoch
+
+损失函数:
+交叉熵，
+
+优化器：
+torch.optim.SGD(model.parameters(),lr=learning_rate)
+optimizer.zero_grad()#每次训练之前得执行该操作，梯度置零
+loss.backwards()#计算梯度
+optimizer.step()模型更新
+
+train_loop
+
+test_loop
