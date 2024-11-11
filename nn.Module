@@ -28,5 +28,48 @@ nn.Softmax
 
 named_parameters:返回元组
 
-nn.Module源码
-add_
+nn.Module源码（所有模块的基类）
+
+add_module(name,module)
+
+buffers(recurse=True)
+
+eval()#模式
+
+get_parameter
+
+load_state_dict(state_dict,strict=True)#加载模型参数与buffer
+
+requires_grad_(requires_grad=True)#是否需要梯度运算
+
+torch.save({'epoch': ,
+'model_state_dict',
+'optimizer_state_dict',
+'loss',
+},PATH)
+
+model.load_state_dict
+optimizer.load_state_dict
+
+nn.module:
+__init__:
+	self.training
+	self._parameters
+
+register_buffer:
+	#buffer:不是参数，是模型的状态，可以保存也可以不保存
+	
+register_parameter(name,param):#添加参数到模型
+
+get_buffer
+
+_apply(self,fn):
+#调用所有子模块、参数并遍历，应用到自身；用于模型参数初始化
+ 
+cuda():#调到gpu
+_apply(lambda t: t.cuda(device))
+
+type():#转换类型
+
+to_empty:
+#所有参数与buffer移动到设备上，但是不带值
