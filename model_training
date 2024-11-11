@@ -1,6 +1,6 @@
 model training
 
-构建dataset
+构建dataset,根据自己的需求定义
 dataloader
 构建模型(继承module)
 
@@ -19,3 +19,5 @@ optimizer.step()模型更新
 train_loop
 
 test_loop
+
+预测时不用优化参数，只需要改batch_size，在gpu或cpu预测
