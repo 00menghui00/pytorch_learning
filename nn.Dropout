@@ -1,0 +1,50 @@
+Dropout:防过拟合，随机丢掉一部分神经元（随机训练不同的神经网络，达到集成学习的效果）
+训练时以p的概率丢掉神经元权重，测试时要用权重乘p，使训练输出的期望值接近测试输出的期望值
+nn.Dropout:类
+nn.function.dropout:函数
+
+nn.Dropout（Module):
+def forward:
+	return F.dropout(input,self.p,self.training,self.inplace)
+self.training继承自Module
+
+cpp底层代码：
+
+tensorflow的dropout:
+tf.nn.dropout(
+	x,rate,noise_shape=None,seed=None,name=None
+)
+tf.layers.dropout()
+
+numpy实现：
+def train(rate,x,w1,b1,w2,b2):
+	layer1=np.maximum(0,np.dot(w1,x)+b1)
+	mask1=np.random.binomial(1,1-rate,layer1.shape)
+	layer1=layer1*mask1
+	layer2=np.maximum(0,np.dot(w2,x)+b2)
+	mask2=np.random.binomial(1,1-rate,layer2.shape)
+	layer2=layer2*mask2
+	return layer2
+def another_train(rate,x,w1,b1,w2,b2):
+	layer1=np.maximum(0,np.dot(w1,x)+b1)
+	mask1=np.random.binomial(1,1-rate,layer1.shape)
+	layer1=layer1*mask1
+	layer1=layer1/(1-rate)
+	layer2=np.maximum(0,np.dot(w2,x)+b2)
+	mask2=np.random.binomial(1,1-rate,layer2.shape)
+	layer2=layer2*mask2
+	layer2=layer2/(1-rate)
+	return layer2
+def test(rate,x,w1,b1,w2,b2):
+	layer1=np.maximum(0,np.dot(w1,x)+b1)
+	layer1=layer1*(1-rate)
+	layer2=np.maximum(0,np.dot(w2,x)+b2)
+	layer2=layer2*(1-rate)
+	return layer2
+def another_test(rate,x,w1,b1,w2,b2):
+	layer1=np.maximum(0,np.dot(w1,x)+b1)
+	layer2=np.maximum(0,np.dot(w2,x)+b2)
+	return layer2	
+
+对象实例化：m=nn.Dropout(p=0.2)
+
