@@ -1,1 +1,45 @@
+神经网络核心：向量乘矩阵仿射变换
+卷积：输入与kernel滑动相乘(Z型滑动)得到输出
+一个通道对应一个kernel，
+bias当作标量直接加在输出通道上
+多通道输入单通道输出：则多通道输出的相对应位置的元素相加的到单通道输出
+多通道输入多通道输出：多通道输入乘多kernel再叠加
+不断更新kernel和bias直到kernel与目标kernel匹配度很高
+###
+torch.nn.Conv2d(in_channels,out_channels,kernel_size,stride,padding,dilation,groups,bias,padding_mode,device,dtype)
+in_channels=1
+out_channels=1
+kernel_size=3
+bias=False
+input_size=[batch_size,in_channels,4,4]
+conv_layer=torch.nn.Conv2d(in_channels,out_channels,kernel_size,bias=bias)
+conv_layer.weight#out_channels*in_channels*height*width
+input_feature_map=torch.randn(input_size)
+output_feature_map=conv_layer(input_feature_map)
+###
+output_feature_map=torch.nn.functional.conv2d(input_feature_map,conv_layer.weight)
+###
+input=torch.randn(5,5)
+kernel=torch.randn(3,3)
+bias=torch.randn(1)#卷积偏置，默认输出通道数为1
+
+矩阵运算实现二维卷积：
+def matrix_multiplication_for_conv2d(input,kernel,bias=0,stride=1,padding=0):
+	if padding>0:
+		torch.nn.functional.pad(input,(padding,padding,padding,padding))
+	input_h,input_w=input.shape
+	kernel_h,kernel_w=kernel.shape
+	output_h=(math.floor((input_h-kernel_2)/stride+1))#floor函数：向下取整
+	output_w=(math.floor((input_w-kernel_2)/stride+1))#floor函数：向下取整
+	output=torch.zeros(output_h,output_w)
+	for i in range(0,input_h-kernel_h+1,stride):#对高度维遍历
+		for j in range(0,input_w-kernel_w+1,stride):#对宽度维遍历
+			region=input[i:i+kernel_h,j:j+kernel_w]#取出被核滑动的区域
+			output[int(i/stride,j/stride)]=torch.sum(region*kernel)+bias#点乘，赋值输出位置的元素
+	return output
+
+
+
+
+
 
