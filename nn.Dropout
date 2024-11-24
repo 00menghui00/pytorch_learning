@@ -3,7 +3,7 @@ Dropout:防过拟合，随机丢掉一部分神经元（随机训练不同的神
 nn.Dropout:类
 nn.function.dropout:函数
 
-nn.Dropout（Module):
+nn.Dropout（Module）:
 def forward:
 	return F.dropout(input,self.p,self.training,self.inplace)
 self.training继承自Module
