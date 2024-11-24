@@ -38,8 +38,56 @@ def matrix_multiplication_for_conv2d(input,kernel,bias=0,stride=1,padding=0):
 			output[int(i/stride,j/stride)]=torch.sum(region*kernel)+bias#点乘，赋值输出位置的元素
 	return output
 
+flatten函数：将多维张量转换为一维向量
+numel函数：返回张量的元素的总数
+reshape函数：将张量的所有元素以列向量排列
 
+def matrix_multiplication_for_conv2d_flatten(input,kernel,bias,stride=1,padding=0):
+	if padding>0:
+		torch.nn.functional.pad(input,(padding,padding,padding,padding))
+	input_h,input_w=input.shape
+	kernel_h,kernel_w=kernel.shape
+	output_h=(math.floor((input_h-kernel_2)/stride+1))#floor函数：向下取整
+	output_w=(math.floor((input_w-kernel_2)/stride+1))#floor函数：向下取整
+	output=torch.zeros(output_h,output_w)
 
+	region_matrix=torch.zeros(output.numel(),kernel.numel())#存储拉平后特征区域
+	kernel_matirx=kernel.reshape((kernel.numel,1))#kernel的列向量（矩阵）形式
+	row_index=0
+	for i in range(0,input_h-kernel_h+1,stride):#对高度维遍历
+		for j in range(0,input_w-kernel_w+1,stride):#对宽度维遍历
+			region=input[i:i+kernel_h,j:j+kernel_w]#取出被核滑动的区域
+			region_vector=torch.flatten(region)
+			region_matrix[row_index]=region_vector
+			row_index+=1
+	output_matrix=region_matrix@kernel_matrix#@表示矩阵相乘
+	output=output_matrix.reshape((output_h,output_w))+bias
 
+	return output
+
+引入batch_size,channel维度
+
+def matrix_multiplication_for_conv2d_full(input,kernel,bias=0,stride=1,padding=0):
+	#input,kernel都是四维张量
+	if padding>0:
+		input=torch.nn.functional.pad(input,(padding,padding,padding,padding,0,0,0,0))
+	bs,in_channel,input_h,input_w=input.shape
+	out_channel,in_channel,kernel_h,kernel_w=kernel.shape
+	if bias is None:
+		bias=torch.zeros(out_channel)
+
+	output_h=(math.floor((input_h-kernel_h)/stride+1))#floor函数：向下取整
+	output_w=(math.floor((input_w-kernel_w)/stride+1))#floor函数：向下取整
+	output=torch.zeros(bs,out_channel,output_h,output_w)
+
+	for ind in range(bs):
+		for oc in range(out_channel):
+			for ic in range(in_channel):
+				for i in range(0,input_h-kernel_h+1,stride):#对高度维遍历
+					for j in range(0,input_w-kernel_w+1,stride):#对宽度维遍历
+						region=input[ind,ic,i:i+kernel_h,j:j+kernel_w]#取出被核滑动的区域
+						output[ind,oc,int(i/stride,j/stride)]=torch.sum(region*kernel[oc,ic])#点乘，赋值输出位置的元素
+			output[ind,oc]+=bias[oc]
+	return output
 
 
