@@ -41,3 +41,5 @@ torch.rand_like:可按照形状要求生成
 torch.randn:正态分布
 torch.randperm:随机组合
 
+torch.mean(dim,keepdim,dtype) 求均值，可指定维度
+torch.sta(dim,unbiased,keepdim,dtype) 求方差，可指定维度，是否无偏估计

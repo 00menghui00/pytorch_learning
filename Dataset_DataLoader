@@ -40,5 +40,7 @@ _next_data
 transform
 target_transform
 
-
+TensorDataset: 将输入数据与目标数据打包成一个数据集（eg：输入数据与目标标签）
+			将张量按位置绑定在一起，可以通过索引访问样本。适用于torch.Tensor类型的数据，便于与dataloader配合
+			
 

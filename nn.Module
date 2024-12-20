@@ -18,11 +18,13 @@ pred_probab=nn.Softmax(dim=1)(logits)
 flatten=nn.Flatten
 torch.nn.Flatten(start_dim=1,end_dim=-1)#浓缩维度
 
-nn.Linear(in_features,out_features,bias,device,dtype)
+nn.Linear(in_features,out_features,bias,device,dtype)：全连接层（线性层）
 
 nn.ReLU#类需要实例化，不能直接调用
 
-nn.Sequential
+nn.Sequential：容器化，将所有层组合成一个顺序容器，形成完整的神经网络模型
+
+nn.Dropout: 添加dropout层
 
 nn.Softmax
 

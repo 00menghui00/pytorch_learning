@@ -5,6 +5,8 @@ anaconda:蟒蛇；python:蛇
 
 tensor:张量，多维数组，作为模型参数，可以在硬件加速器(gpu)上运行，内置一百多种方法(官网可查看）
 
+torch.tensor(data,dtype,device,requires_grad): 创建张量
+
 列表创建张量：
 	a=[1,2,3] #class list
 	b=torch.tensor(a)#class tensor

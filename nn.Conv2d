@@ -1,10 +1,11 @@
 神经网络核心：向量乘矩阵仿射变换
 卷积：输入与kernel滑动相乘(Z型滑动)得到输出
-一个通道对应一个kernel，
+一个通道对应一个kernel(卷积核).每个卷积核与对应的输入特征图进行卷积得到一个输出特征图，因此输出通道数等于卷积核数
 bias当作标量直接加在输出通道上
 多通道输入单通道输出：则多通道输出的相对应位置的元素相加的到单通道输出
 多通道输入多通道输出：多通道输入乘多kernel再叠加
 不断更新kernel和bias直到kernel与目标kernel匹配度很高
+
 ###
 torch.nn.Conv2d(in_channels,out_channels,kernel_size,stride,padding,dilation,groups,bias,padding_mode,device,dtype)
 in_channels=1

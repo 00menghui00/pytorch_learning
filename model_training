@@ -1,4 +1,4 @@
-model training
+### model training
 
 构建dataset,根据自己的需求定义
 dataloader
@@ -10,6 +10,7 @@ lr,bs,epoch
 损失函数:
 交叉熵，
 
+from torch.optim import optim #导入优化器模块
 优化器：
 torch.optim.SGD(model.parameters(),lr=learning_rate)
 optimizer.zero_grad()#每次训练之前得执行该操作，梯度置零
