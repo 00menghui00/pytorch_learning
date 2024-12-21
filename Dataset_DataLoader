@@ -40,7 +40,16 @@ _next_data
 transform
 target_transform
 
-TensorDataset: 将输入数据与目标数据打包成一个数据集（eg：输入数据与目标标签）
-			将张量按位置绑定在一起，可以通过索引访问样本。适用于torch.Tensor类型的数据，便于与dataloader配合
-			
+###
+train_dataset = TensorDataset(X_train, y_train):
 
+TensorDataset 是 PyTorch 的一个类，用于将张量组合成数据集。它接收多个张量作为输入，并将它们按索引进行配对。	
+
+###
+train_dataloader = DataLoader(train_dataset, batch_size=64, shuffle=True):
+
+DataLoader 是 PyTorch 的另一个类，用于创建数据加载器。数据加载器负责将数据集划分为小批次（batch），并提供迭代器来遍历这些批次。
+DataLoader(train_dataset, batch_size=64, shuffle=True) 创建了一个训练数据加载器 train_dataloader，参数解释如下：
+train_dataset: 要加载的数据集，即上面创建的 train_dataset。
+batch_size=64: 每个批次包含的样本数量。这意味着 train_dataloader 每次迭代将返回 64 个样本。
+shuffle=True: 是否在每个 epoch 开始时打乱数据。对于训练数据，通常需要打乱数据，以避免模型在训练过程中学习到数据的顺序。

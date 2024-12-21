@@ -33,3 +33,5 @@ torch.full([2,2],5)
 
 cat:连接张量
 torch.cat([a,b],dim=1)#dim表示第一个维度
+
+torch.from_numpy(ndarray) -> Tensor #用于将 NumPy 数组转换为 PyTorch 张量的函数。这个转换非常重要，因为 PyTorch 的神经网络模型需要以张量（Tensor）作为输入，而我们通常使用 NumPy 来进行数据处理和操作。
